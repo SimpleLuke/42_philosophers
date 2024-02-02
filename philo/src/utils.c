@@ -6,9 +6,13 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:10:23 by llai              #+#    #+#             */
-/*   Updated: 2024/02/02 17:10:50 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/02 23:06:02 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../includes/philo.h"
+#include <stdint.h>
+#include <unistd.h>
 
 static int	ft_isdigit(int c)
 {
@@ -43,4 +47,13 @@ long long	ft_atoll(const char *nptr)
 		i++;
 	}
 	return (num * is_neg);
+}
+
+void	ft_usleep(uint64_t ms, t_table *table)
+{
+	uint64_t	target;
+
+	target = timestamp_in_ms(table) + ms;
+	while (timestamp_in_ms(table) < target)
+		usleep(1);
 }

@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:41:36 by llai              #+#    #+#             */
-/*   Updated: 2024/02/02 19:44:58 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/02 23:28:13 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ int	main(int argc, char **argv)
 	t_table	table;
 	
 
-	(void)argv;
-	(void)table;
 	if (argc < 5)
 	{
 		print_err("Invalid arguments",
@@ -35,4 +33,5 @@ int	main(int argc, char **argv)
 
 	printf("Enter to continue...\n");
 	getchar();
+	return (0);
 }

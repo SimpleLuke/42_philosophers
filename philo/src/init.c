@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:06:50 by llai              #+#    #+#             */
-/*   Updated: 2024/02/02 18:51:37 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/02 23:35:54 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,42 @@ void	assign_forks(t_table *table)
 	}
 }
 
+void	init_philo(t_table *table)
+{
+	int	i;
+
+	table->philos = (t_philo *)malloc(sizeof(t_philo) * table->philo_nb);
+	if (!table->philos)
+	{
+		print_err("table->philos", "Malloc error");
+		return ;
+	}
+	i = -1;
+	while (++i < table->philo_nb)
+	{
+		table->philos[i].num = i + 1;
+		table->philos[i].table = table;
+		table->philos[i].last_eat = timestamp_in_ms(table);
+		// printf("INIT: %lld\n", table->philos[i].last_eat);
+		table->philos[i].okay = true;
+	}
+}
+
+void	init_dead_lock(t_table *table)
+{
+	if (pthread_mutex_init(&table->nurse.dead_lock, NULL) != 0)
+	{
+		print_err("table->nurse.dead_lock", "mutex init has failed\n");
+		return ;
+	}
+}
+
 int	init_table(t_table *table, int argc, char **argv)
 {
 	table->start_time = 0;
 	timestamp_in_ms(table);
 	table->philo_nb = ft_atoll(argv[1]);
+	// printf("NUM: %d\n", table->philo_nb);
 	table->die_time = ft_atoll(argv[2]);
 	table->eat_time = ft_atoll(argv[3]);
 	table->sleep_time = ft_atoll(argv[4]);
@@ -54,12 +85,8 @@ int	init_table(t_table *table, int argc, char **argv)
 		table->eat_goal = ft_atoll(argv[5]);
 	else
 		table->eat_goal = -1;
-	table->philos = (t_philo *)malloc(sizeof(t_philo) * table->philo_nb);
-	if (!table->philos)
-	{
-		print_err("table->philos", "Malloc error");
-		return(EXIT_FAILURE);
-	}
+	init_philo(table);
 	assign_forks(table);
+	init_dead_lock(table);
 	return (0);
 }
