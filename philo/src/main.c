@@ -5,36 +5,34 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/30 13:46:10 by llai              #+#    #+#             */
-/*   Updated: 2024/01/30 15:41:26 by llai             ###   ########.fr       */
+/*   Created: 2024/02/02 16:41:36 by llai              #+#    #+#             */
+/*   Updated: 2024/02/02 19:44:58 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/pipex.h"
+#include "../includes/philo.h"
 
-int	main(int argc, char **argv, char **env)
+int	main(int argc, char **argv)
 {
-	t_data	data;
+	t_table	table;
+	
 
+	(void)argv;
+	(void)table;
 	if (argc < 5)
 	{
-		if (argc > 1 && !ft_strncmp("here_doc", argv[1], 9))
-			err_exit(print_err("Invalid arguments",
-					"./pipex here_doc LIMITER cmd cmd1 file",
-					EXIT_FAILURE), NULL);
-		else
-			err_exit(print_err("Invalid arguments",
-					"./pipex infile cmd ... cmdn outfile", EXIT_FAILURE), NULL);
+		print_err("Invalid arguments",
+				"./philo number_of_philosophers time_to_die time_to_eat time_to_sleep \
+[number_of_times_each_philosopher_must_eat]");
+		return (EXIT_FAILURE);
 	}
-	else if (argc < 6 && !ft_strncmp("here_doc", argv[1], 9))
-		err_exit(print_err("Invalid arguments",
-				"./pipex here_doc LIMITER cmd cmd1 file", EXIT_FAILURE), NULL);
-	if (!env)
-		err_exit(print_err("Invalid environment variables", NULL,
-				EXIT_FAILURE), NULL);
-	init_data(argc, argv, env, &data);
-	pipex(&data);
+	init_table(&table, argc, argv);
+	start_simulation(&table);
+	// printf("START: %lld\n", timestamp_in_ms(&table));
+	// usleep(200 * 1000);
+	// printf("TIME: %lld\n", timestamp_in_ms(&table));
+	free_data(&table);
+
 	printf("Enter to continue...\n");
 	getchar();
-	return (data.exit_code);
 }

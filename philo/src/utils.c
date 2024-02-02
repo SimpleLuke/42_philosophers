@@ -1,0 +1,46 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/02 17:10:23 by llai              #+#    #+#             */
+/*   Updated: 2024/02/02 17:10:50 by llai             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+static int	ft_isdigit(int c)
+{
+	if (c >= '0' && c <= '9')
+		return (c);
+	return (0);
+}
+
+long long	ft_atoll(const char *nptr)
+{
+	long long	num;
+	int			is_neg;
+	int			i;
+
+	num = 0;
+	is_neg = 1;
+	i = 0;
+	while (nptr[i] && (nptr[i] == ' ' || nptr[i] == '\t'
+			|| nptr[i] == '\n' || nptr[i] == '\v'
+			|| nptr[i] == '\r' || nptr[i] == '\f'))
+		i++;
+	if (nptr[i] == '+')
+		i++;
+	else if (nptr[i] == '-')
+	{
+		is_neg *= -1;
+		i++;
+	}
+	while (ft_isdigit(nptr[i]))
+	{
+		num = (num * 10) + (nptr[i] - '0');
+		i++;
+	}
+	return (num * is_neg);
+}

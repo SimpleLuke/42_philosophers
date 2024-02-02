@@ -2,10 +2,16 @@ BIN = bin
 NAME = philo
 CC = cc
 CFLAG = -Wall -Werror -Wextra -pthread -g3
-SRC = src/main.c 
+SRC = src/main.c \
+	  src/error.c \
+	  src/time.c \
+	  src/init.c \
+	  src/utils.c \
+	  src/free.c \
+	  src/simulation.c
 OBJ = $(SRC:src/%c=$(BIN)/%o)
 INCS = ./includes
-IFLAGS = -I $(INCS) -I $(LIBFT_PATH)
+IFLAGS = -I $(INCS)
 UNAME := $(shell uname)
 RM = rm -rf
 
