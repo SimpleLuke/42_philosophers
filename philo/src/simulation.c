@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 19:30:09 by llai              #+#    #+#             */
-/*   Updated: 2024/02/03 19:35:40 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/03 20:44:56 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void	eating(t_philo *philo)
 	// pthread_mutex_unlock(&philo->table->nurse.dead_lock);
 	pthread_mutex_lock(&philo->table->nurse.eat_lock);
 	philo->last_eat = timestamp_in_ms(philo->table);
+	philo->eaten++;
 	// printf("%d : last eat %lld\n", philo->num, philo->last_eat);
 	pthread_mutex_unlock(&philo->table->nurse.eat_lock);
 	pthread_mutex_lock(&philo->table->print_lock);
@@ -214,23 +215,36 @@ void	stop_philos(t_table *table)
 	// printf("DONE\n");
 }
 
-bool	check_down(t_table *table)
+// bool	check_down(t_table *table)
+// {
+// 	int	i;
+//
+// 	i = -1;
+// 	while (++i < table->philo_nb)
+// 	{
+// 		pthread_mutex_lock(&table->nurse.dead_lock);
+// 		if (table->philos[i].okay)
+// 		{
+// 			pthread_mutex_unlock(&table->nurse.dead_lock);
+// 			return (false);
+// 		}
+// 		pthread_mutex_unlock(&table->nurse.dead_lock);
+// 	}
+// 	return (true);
+//
+// }
+//
+bool	check_eat_goal(t_table *table)
 {
 	int	i;
 
 	i = -1;
 	while (++i < table->philo_nb)
 	{
-		pthread_mutex_lock(&table->nurse.dead_lock);
-		if (table->philos[i].okay)
-		{
-			pthread_mutex_unlock(&table->nurse.dead_lock);
+		if (table->philos[i].eaten < table->eat_goal)
 			return (false);
-		}
-		pthread_mutex_unlock(&table->nurse.dead_lock);
 	}
 	return (true);
-
 }
 
 void	*monitor(void *arg)
@@ -243,6 +257,13 @@ void	*monitor(void *arg)
 	while (true)
 	{
 		ft_usleep(2, table);
+		if (table->eat_goal > -1 && check_eat_goal(table))
+		{
+				pthread_mutex_lock(&table->nurse.dead_lock);
+				stop_philos(table);
+				pthread_mutex_unlock(&table->nurse.dead_lock);
+				return (NULL);
+		}
 		i = -1;
 		while (++i < table->philo_nb)
 		{

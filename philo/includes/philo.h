@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:35:29 by llai              #+#    #+#             */
-/*   Updated: 2024/02/03 19:03:45 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/03 20:33:51 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ typedef struct s_philo
 	bool			right_lock;
 	struct s_table	*table;
 	uint64_t		last_eat;
-	bool			okay;
+	int				eaten;
+	// bool			okay;
 }	t_philo;
 
 typedef struct s_table

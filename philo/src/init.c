@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:06:50 by llai              #+#    #+#             */
-/*   Updated: 2024/02/03 19:03:57 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/03 20:38:37 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,10 @@ void	init_philo(t_table *table)
 	{
 		table->philos[i].num = i + 1;
 		table->philos[i].table = table;
+		table->philos[i].eaten = 0;
 		// table->philos[i].last_eat = timestamp_in_ms(table);
 		// printf("INIT: %lld\n", table->philos[i].last_eat);
-		table->philos[i].okay = true;
+
 	}
 }
 
@@ -92,6 +93,7 @@ int	init_table(t_table *table, int argc, char **argv)
 	table->eat_time = ft_atoll(argv[3]);
 	table->sleep_time = ft_atoll(argv[4]);
 	table->is_end = false;
+	table->dead = -1;
 	if (argc == 6)
 		table->eat_goal = ft_atoll(argv[5]);
 	else
