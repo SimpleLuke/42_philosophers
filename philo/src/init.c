@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:06:50 by llai              #+#    #+#             */
-/*   Updated: 2024/02/03 15:36:32 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/03 19:03:57 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ int	init_table(t_table *table, int argc, char **argv)
 	table->die_time = ft_atoll(argv[2]);
 	table->eat_time = ft_atoll(argv[3]);
 	table->sleep_time = ft_atoll(argv[4]);
+	table->is_end = false;
 	if (argc == 6)
 		table->eat_goal = ft_atoll(argv[5]);
 	else

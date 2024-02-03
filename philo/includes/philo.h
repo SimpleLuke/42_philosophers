@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:35:29 by llai              #+#    #+#             */
-/*   Updated: 2024/02/03 17:27:41 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/03 19:03:45 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,10 @@ typedef struct s_table
 	int				dead;
 	uint64_t		dead_time;
 	pthread_mutex_t	print_lock;
+	bool			is_end;
 }	t_table;
 
+bool		check_argv(int argc, char **argv);
 void		print_err(char *msg1, char *msg2);
 long long	ft_atoll(const char *nptr);
 uint64_t	timestamp_in_ms(t_table *table);

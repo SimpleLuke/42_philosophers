@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:41:36 by llai              #+#    #+#             */
-/*   Updated: 2024/02/03 17:28:38 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/03 19:01:02 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@ int	main(int argc, char **argv)
 		print_err("Invalid arguments",
 				"./philo number_of_philosophers time_to_die time_to_eat time_to_sleep \
 [number_of_times_each_philosopher_must_eat]");
+		return (EXIT_FAILURE);
+	}
+	if (!check_argv(argc, argv))
+	{
+		print_err("Invalid arguments", "Number must be positive");
 		return (EXIT_FAILURE);
 	}
 	init_table(&table, argc, argv);

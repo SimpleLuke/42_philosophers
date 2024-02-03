@@ -6,11 +6,12 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:10:23 by llai              #+#    #+#             */
-/*   Updated: 2024/02/03 15:34:45 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/03 19:37:51 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+#include <stdbool.h>
 #include <stdint.h>
 #include <unistd.h>
 
@@ -55,5 +56,18 @@ void	ft_usleep(uint64_t ms, t_table *table)
 
 	target = timestamp_in_ms(table) + ms;
 	while (timestamp_in_ms(table) < target)
-		usleep(1);
+		usleep(100);
+}
+
+bool	check_argv(int argc, char **argv)
+{
+	int	i;
+
+	i = 0;
+	while (++i < argc)
+	{
+		if (argv[i][0] == '-')
+			return (false);
+	}
+	return (true);
 }
