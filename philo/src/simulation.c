@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 19:30:09 by llai              #+#    #+#             */
-/*   Updated: 2024/02/02 23:39:24 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/03 16:33:27 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	pick_up_forks(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->table->nurse.dead_lock);
 	// printf("%d pick up: %d\n", philo->num, philo->okay);
+	// printf("start time: %lld\n", philo->table->start_time);
 	if (!philo->okay)
 	{
 		pthread_mutex_unlock(&philo->table->nurse.dead_lock);
@@ -27,22 +28,38 @@ void	pick_up_forks(t_philo *philo)
 	if (philo->num % 2)
 	{
 		pthread_mutex_lock(philo->left_fork);
+		philo->left_lock = true;
+		// set_time(philo->table);
+		pthread_mutex_lock(&philo->table->print_lock);
 		printf("%lld %d has taken a left fork\n", timestamp_in_ms(philo->table), philo->num);
+		pthread_mutex_unlock(&philo->table->print_lock);
 	}
 	else
 	{
 		pthread_mutex_lock(philo->right_fork);
+		philo->right_lock = true;
+		// set_time(philo->table);
+		pthread_mutex_lock(&philo->table->print_lock);
 		printf("%lld %d has taken a right fork\n", timestamp_in_ms(philo->table), philo->num);
+		pthread_mutex_unlock(&philo->table->print_lock);
 	}
 	if (philo->num % 2)
 	{
 		pthread_mutex_lock(philo->right_fork);
+		philo->right_lock = true;
+		// set_time(philo->table);
+		pthread_mutex_lock(&philo->table->print_lock);
 		printf("%lld %d has taken a right fork\n", timestamp_in_ms(philo->table), philo->num);
+		pthread_mutex_unlock(&philo->table->print_lock);
 	}
 	else
 	{
 		pthread_mutex_lock(philo->left_fork);
+		philo->left_lock = true;
+		// set_time(philo->table);
+		pthread_mutex_lock(&philo->table->print_lock);
 		printf("%lld %d has taken a left fork\n", timestamp_in_ms(philo->table), philo->num);
+		pthread_mutex_unlock(&philo->table->print_lock);
 	}
 }
 
@@ -56,24 +73,41 @@ void	eating(t_philo *philo)
 		return ;
 	}
 	pthread_mutex_unlock(&philo->table->nurse.dead_lock);
+	pthread_mutex_lock(&philo->table->nurse.eat_lock);
 	philo->last_eat = timestamp_in_ms(philo->table);
+	// printf("%d : last eat %lld\n", philo->num, philo->last_eat);
+	pthread_mutex_unlock(&philo->table->nurse.eat_lock);
+	pthread_mutex_lock(&philo->table->print_lock);
 	printf("%lld %d is eating\n", timestamp_in_ms(philo->table), philo->num);
+	pthread_mutex_unlock(&philo->table->print_lock);
 	ft_usleep(philo->table->eat_time, philo->table);
 }
 
 void	put_down_forks(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->table->nurse.dead_lock);
+	// pthread_mutex_lock(&philo->table->nurse.dead_lock);
 	// printf("%d put down: %d\n", philo->num, philo->okay);
-	if (!philo->okay)
+	// if (!philo->okay)
+	// {
+		// pthread_mutex_unlock(&philo->table->nurse.dead_lock);
+		// return ;
+	// }
+	// pthread_mutex_unlock(&philo->table->nurse.dead_lock);
+	if (philo->num % 2)
 	{
-		pthread_mutex_unlock(&philo->table->nurse.dead_lock);
-		return ;
+		if (philo->left_lock)
+			pthread_mutex_unlock(philo->left_fork);
+		if (philo->right_lock)
+			pthread_mutex_unlock(philo->right_fork);
 	}
-	pthread_mutex_unlock(&philo->table->nurse.dead_lock);
-	pthread_mutex_unlock(philo->left_fork);
+	else
+	{
+		if (philo->right_lock)
+			pthread_mutex_unlock(philo->right_fork);
+		if (philo->left_lock)
+			pthread_mutex_unlock(philo->left_fork);
+	}
 	// printf("%lld %d put down a left fork\n", timestamp_in_ms(philo->table), philo->num);
-	pthread_mutex_unlock(philo->right_fork);
 	// printf("%lld %d put down a right fork\n", timestamp_in_ms(philo->table), philo->num);
 }
 
@@ -87,7 +121,9 @@ void	sleeping(t_philo *philo)
 		return ;
 	}
 	pthread_mutex_unlock(&philo->table->nurse.dead_lock);
+	pthread_mutex_lock(&philo->table->print_lock);
 	printf("%lld %d is sleeping\n", timestamp_in_ms(philo->table), philo->num);
+	pthread_mutex_unlock(&philo->table->print_lock);
 	ft_usleep(philo->table->sleep_time, philo->table);
 }
 
@@ -101,7 +137,9 @@ void	thinking(t_philo *philo)
 		return ;
 	}
 	pthread_mutex_unlock(&philo->table->nurse.dead_lock);
+	pthread_mutex_lock(&philo->table->print_lock);
 	printf("%lld %d is thinking\n", timestamp_in_ms(philo->table), philo->num);
+	pthread_mutex_unlock(&philo->table->print_lock);
 }
 
 void	*routine(void *arg)
@@ -109,13 +147,25 @@ void	*routine(void *arg)
 	t_philo		*philo;
 
 	philo = (t_philo *)arg;
-	while (philo->okay)
+	// philo->last_eat = timestamp_in_ms(philo->table);
+	// printf("RUNNING: %d...\n", philo->num);
+	if (philo->num % 2)
+		ft_usleep(1, philo->table);
+	while (1)
 	{
+		pthread_mutex_lock(&philo->table->nurse.dead_lock);
+		if (!philo->okay)
+		{
+			pthread_mutex_unlock(&philo->table->nurse.dead_lock);
+			// printf("BREAKS: %d at %lld\n", philo->num, timestamp_in_ms(philo->table));
+			break ;
+		}
+		pthread_mutex_unlock(&philo->table->nurse.dead_lock);
+		thinking(philo);
 		pick_up_forks(philo);
 		eating(philo);
 		put_down_forks(philo);
 		sleeping(philo);
-		thinking(philo);
 	}
 	return (NULL);
 }
@@ -129,10 +179,16 @@ void	stop_philos(t_table *table)
 	{
 		pthread_mutex_lock(&table->nurse.dead_lock);
 		table->philos[i].okay = false;
-		if (pthread_detach(table->philos[i].tid) != 0)
-			print_err("Detach failed", NULL);
+		// if (pthread_detach(table->philos[i].tid) != 0)
+		// 	print_err("Detach failed", NULL);
 		pthread_mutex_unlock(&table->nurse.dead_lock);
 	}
+	i = -1;
+	while (++i < table->philo_nb)
+	{
+		put_down_forks(&table->philos[i]);
+	}
+	// printf("DONE\n");
 }
 
 void	*monitor(void *arg)
@@ -148,13 +204,18 @@ void	*monitor(void *arg)
 		while (++i < table->philo_nb)
 		{
 			now = timestamp_in_ms(table);
+			// pthread_mutex_lock(&table->nurse.eat_lock);
 			if (now - table->philos[i].last_eat > table->die_time)
 			{
 				// printf("%d: last eat %lld now: %lld die:%lld\n", i + 1, table->philos[i].last_eat, now, table->die_time);
 				stop_philos(table);
+				// pthread_mutex_unlock(&table->nurse.eat_lock);
+				pthread_mutex_lock(&table->print_lock);
 				printf("%lld %d died\n", now, i + 1);
+				pthread_mutex_unlock(&table->print_lock);
 				return (NULL);
 			}
+			// pthread_mutex_unlock(&table->nurse.eat_lock);
 		}
 	}
 	return (NULL);
@@ -193,20 +254,9 @@ void	join_pthread(t_table *table)
 		pthread_join(table->philos[i].tid, NULL);
 }
 
-void	set_time(t_table *table)
-{
-	int	i;
-
-	table->start_time = 0;
-	timestamp_in_ms(table);
-	i = -1;
-	while (++i < table->philo_nb)
-		table->philos[i].last_eat = timestamp_in_ms(table);
-}
-
 void	start_simulation(t_table *table)
 {
-	// set_time(table);
+	set_time(table);
 	set_pthread(table);
 	join_pthread(table);
 }

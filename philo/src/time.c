@@ -6,11 +6,12 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:35:28 by llai              #+#    #+#             */
-/*   Updated: 2024/02/02 21:48:57 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/03 15:30:20 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+#include <stdint.h>
 
 static uint64_t	gettimeofday_ms(void)
 {
@@ -26,3 +27,15 @@ uint64_t	timestamp_in_ms(t_table *table)
 		table->start_time = gettimeofday_ms();
 	return (gettimeofday_ms() - table->start_time);
 }
+
+void	set_time(t_table *table)
+{
+	int			i;
+	uint64_t	now;
+
+	now = timestamp_in_ms(table);
+	i = -1;
+	while (++i < table->philo_nb)
+		table->philos[i].last_eat = now;
+}
+
