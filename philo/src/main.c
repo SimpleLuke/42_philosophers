@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:41:36 by llai              #+#    #+#             */
-/*   Updated: 2024/02/03 15:42:55 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/03 17:28:38 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,12 @@ int	main(int argc, char **argv)
 	// printf("START: %lld\n", timestamp_in_ms(&table));
 	// usleep(200 * 1000);
 	// printf("TIME: %lld\n", timestamp_in_ms(&table));
+	pthread_mutex_lock(&table.print_lock);
+	printf("%lld %d died\n", table.dead_time, table.dead + 1);
+	pthread_mutex_unlock(&table.print_lock);
 	free_data(&table);
 
-	printf("Enter to continue...\n");
-	getchar();
+	// printf("Enter to continue...\n");
+	// getchar();
 	return (0);
 }

@@ -3,3 +3,6 @@
 *.DS_Store
 philo
 libft/
+LazyPhilosophersTester/
+outfile
+test
