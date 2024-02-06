@@ -6,11 +6,12 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 11:51:27 by llai              #+#    #+#             */
-/*   Updated: 2024/02/06 11:51:37 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/06 12:52:35 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+#include <pthread.h>
 
 void	stop_philos(t_table *table)
 {
@@ -53,14 +54,17 @@ void	*monitor(void *arg)
 		i = -1;
 		while (++i < table->philo_nb)
 		{
+			pthread_mutex_lock(&table->nurse.eat_lock);
 			if (timestamp_in_ms(table) - table->philos[i].last_eat
 				> table->die_time)
 			{
 				stop_philos(table);
+				pthread_mutex_unlock(&table->nurse.eat_lock);
 				table->dead = i;
 				table->dead_time = timestamp_in_ms(table);
 				return (NULL);
 			}
+			pthread_mutex_unlock(&table->nurse.eat_lock);
 		}
 	}
 	return (NULL);
