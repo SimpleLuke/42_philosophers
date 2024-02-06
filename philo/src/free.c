@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 18:59:59 by llai              #+#    #+#             */
-/*   Updated: 2024/02/06 11:21:10 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/06 11:36:32 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	ft_free(void **ptr)
 void	free_data(t_table *table)
 {
 	int	i;
+
 	ft_free((void **)&table->philos);
 	i = -1;
 	while (++i < table->philo_nb)

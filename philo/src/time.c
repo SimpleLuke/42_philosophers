@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:35:28 by llai              #+#    #+#             */
-/*   Updated: 2024/02/03 15:30:20 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/06 11:36:45 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,3 @@ void	set_time(t_table *table)
 	while (++i < table->philo_nb)
 		table->philos[i].last_eat = now;
 }
-

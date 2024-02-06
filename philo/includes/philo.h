@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:35:29 by llai              #+#    #+#             */
-/*   Updated: 2024/02/06 11:32:38 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/06 11:56:29 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,11 @@
 # include <sys/time.h>
 # include <stdbool.h>
 
-typedef struct s_nurse {
+typedef struct s_nurse
+{
 	pthread_t		tid;
-	pthread_mutex_t dead_lock;
-	pthread_mutex_t eat_lock;
+	pthread_mutex_t	dead_lock;
+	pthread_mutex_t	eat_lock;
 }	t_nurse;
 
 typedef struct s_philo
@@ -64,6 +65,10 @@ long long	ft_atoll(const char *nptr);
 uint64_t	timestamp_in_ms(t_table *table);
 int			init_table(t_table *table, int argc, char **argv);
 void		start_simulation(t_table *table);
+void		*routine(void *arg);
+void		*monitor(void *arg);
+void		pick_up_forks(t_philo *philo);
+void		put_down_forks(t_philo *philo);
 void		free_data(t_table *table);
 void		ft_usleep(uint64_t ms, t_table *table);
 void		set_time(t_table *table);

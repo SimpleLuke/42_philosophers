@@ -8,7 +8,10 @@ SRC = src/main.c \
 	  src/init.c \
 	  src/utils.c \
 	  src/free.c \
-	  src/simulation.c
+	  src/simulation.c \
+	  src/monitor.c \
+	  src/fork_utils.c \
+	  src/routine.c
 OBJ = $(SRC:src/%c=$(BIN)/%o)
 INCS = ./includes
 IFLAGS = -I $(INCS)

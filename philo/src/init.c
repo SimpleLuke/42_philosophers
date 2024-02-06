@@ -6,22 +6,27 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:06:50 by llai              #+#    #+#             */
-/*   Updated: 2024/02/06 11:20:51 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/06 11:38:36 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void	assign_forks(t_table *table)
+void	create_forks(t_table *table)
 {
-	int	i;
-
 	table->forks = malloc(sizeof(pthread_mutex_t) * table->philo_nb);
 	if (!table->forks)
 	{
 		print_err("table->forks", "Malloc error");
 		return ;
 	}
+}
+
+void	assign_forks(t_table *table)
+{
+	int	i;
+
+	create_forks(table);
 	i = -1;
 	while (++i < table->philo_nb)
 	{
@@ -60,9 +65,6 @@ void	init_philo(t_table *table)
 		table->philos[i].eaten = 0;
 		table->philos[i].left_lock = false;
 		table->philos[i].right_lock = false;
-		// table->philos[i].last_eat = timestamp_in_ms(table);
-		// printf("INIT: %lld\n", table->philos[i].last_eat);
-
 	}
 }
 
@@ -93,9 +95,7 @@ void	init_nurse_lock(t_table *table)
 int	init_table(t_table *table, int argc, char **argv)
 {
 	table->start_time = 0;
-	// timestamp_in_ms(table);
 	table->philo_nb = ft_atoll(argv[1]);
-	// printf("NUM: %d\n", table->philo_nb);
 	table->die_time = ft_atoll(argv[2]);
 	table->eat_time = ft_atoll(argv[3]);
 	table->sleep_time = ft_atoll(argv[4]);
