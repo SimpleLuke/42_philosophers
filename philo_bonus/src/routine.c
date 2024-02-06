@@ -6,60 +6,51 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 11:54:28 by llai              #+#    #+#             */
-/*   Updated: 2024/02/06 14:30:49 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/06 22:03:22 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+#include <semaphore.h>
 
 void	eating(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->table->nurse.eat_lock);
+	sem_wait(philo->table->eat_sem);
 	philo->last_eat = timestamp_in_ms(philo->table);
 	philo->eaten++;
-	pthread_mutex_unlock(&philo->table->nurse.eat_lock);
-	pthread_mutex_lock(&philo->table->print_lock);
+	sem_post(philo->table->eat_sem);
 	if (!philo->table->is_end)
 		printf("%ld\t%d is eating\n", timestamp_in_ms(philo->table), philo->id);
-	pthread_mutex_unlock(&philo->table->print_lock);
 	ft_usleep(philo->table->eat_time, philo->table);
 }
 
 void	sleeping(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->table->print_lock);
 	if (!philo->table->is_end)
 		printf("%ld\t%d is sleeping\n",
 			timestamp_in_ms(philo->table), philo->id);
-	pthread_mutex_unlock(&philo->table->print_lock);
 	ft_usleep(philo->table->sleep_time, philo->table);
 }
 
 void	thinking(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->table->print_lock);
 	if (!philo->table->is_end)
 		printf("%ld\t%d is thinking\n",
 			timestamp_in_ms(philo->table), philo->id);
-	pthread_mutex_unlock(&philo->table->print_lock);
 }
 
-void	*routine(void *arg)
+// void	*routine(void *arg)
+void	*routine(t_philo *philo)
 {
-	t_philo		*philo;
-
-	philo = (t_philo *)arg;
-	if (philo->id % 2)
-		ft_usleep(1, philo->table);
+	// t_philo		*philo;
+	//
+	// philo = (t_philo *)arg;
+	// if (philo->id % 2)
+	// 	ft_usleep(1, philo->table);
+	// sem_wait(philo->table->dead_sem);
 	while (1)
 	{
-		pthread_mutex_lock(&philo->table->nurse.dead_lock);
-		if (philo->table->is_end)
-		{
-			pthread_mutex_unlock(&philo->table->nurse.dead_lock);
-			break ;
-		}
-		pthread_mutex_unlock(&philo->table->nurse.dead_lock);
+	// printf("HEY\n");
 		thinking(philo);
 		pick_up_forks(philo);
 		eating(philo);
