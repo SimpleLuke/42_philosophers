@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:06:50 by llai              #+#    #+#             */
-/*   Updated: 2024/02/03 20:38:37 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/06 11:20:51 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,11 @@ void	init_philo(t_table *table)
 	i = -1;
 	while (++i < table->philo_nb)
 	{
-		table->philos[i].num = i + 1;
+		table->philos[i].id = i + 1;
 		table->philos[i].table = table;
 		table->philos[i].eaten = 0;
+		table->philos[i].left_lock = false;
+		table->philos[i].right_lock = false;
 		// table->philos[i].last_eat = timestamp_in_ms(table);
 		// printf("INIT: %lld\n", table->philos[i].last_eat);
 
@@ -79,6 +81,11 @@ void	init_nurse_lock(t_table *table)
 	if (pthread_mutex_init(&table->print_lock, NULL) != 0)
 	{
 		print_err("table->print_lock", "mutex init has failed\n");
+		return ;
+	}
+	if (pthread_mutex_init(&table->fork_lock, NULL) != 0)
+	{
+		print_err("table->fork_lock", "mutex init has failed\n");
 		return ;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:10:23 by llai              #+#    #+#             */
-/*   Updated: 2024/02/03 19:37:51 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/06 11:01:39 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ bool	check_argv(int argc, char **argv)
 	i = 0;
 	while (++i < argc)
 	{
-		if (argv[i][0] == '-')
+		if (ft_atoll(argv[i]) <= 0)
 			return (false);
 	}
 	return (true);

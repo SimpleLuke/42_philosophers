@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:35:29 by llai              #+#    #+#             */
-/*   Updated: 2024/02/03 20:33:51 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/06 11:32:38 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef struct s_nurse {
 
 typedef struct s_philo
 {
-	int				num;
+	int				id;
 	pthread_t		tid;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
@@ -38,7 +38,6 @@ typedef struct s_philo
 	struct s_table	*table;
 	uint64_t		last_eat;
 	int				eaten;
-	// bool			okay;
 }	t_philo;
 
 typedef struct s_table
@@ -55,6 +54,7 @@ typedef struct s_table
 	int				dead;
 	uint64_t		dead_time;
 	pthread_mutex_t	print_lock;
+	pthread_mutex_t	fork_lock;
 	bool			is_end;
 }	t_table;
 
