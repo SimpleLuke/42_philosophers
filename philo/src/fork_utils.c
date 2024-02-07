@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 11:53:26 by llai              #+#    #+#             */
-/*   Updated: 2024/02/06 11:56:55 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/07 11:56:14 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	pick_up_left_fork(t_philo *philo)
 	pthread_mutex_unlock(&philo->table->fork_lock);
 	pthread_mutex_lock(&philo->table->print_lock);
 	if (!philo->table->is_end)
-		printf("%ld\t%d has taken a left fork\n",
+		printf("%ld\t%d has taken a fork\n",
 			timestamp_in_ms(philo->table), philo->id);
 	pthread_mutex_unlock(&philo->table->print_lock);
 }
@@ -33,7 +33,7 @@ void	pick_up_right_fork(t_philo *philo)
 	pthread_mutex_unlock(&philo->table->fork_lock);
 	pthread_mutex_lock(&philo->table->print_lock);
 	if (!philo->table->is_end)
-		printf("%ld\t%d has taken a right fork\n",
+		printf("%ld\t%d has taken a fork\n",
 			timestamp_in_ms(philo->table), philo->id);
 	pthread_mutex_unlock(&philo->table->print_lock);
 }
