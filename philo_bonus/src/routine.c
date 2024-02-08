@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 11:54:28 by llai              #+#    #+#             */
-/*   Updated: 2024/02/08 18:15:30 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/08 18:33:36 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	eating(t_philo *philo)
 	philo->eaten++;
 	if (philo->eaten == philo->table->eat_goal)
 	{
-
 		printf("%d : eaten %d\n", philo->id, philo->eaten);
 		sem_post(philo->table->eaten_sem);
 	}
