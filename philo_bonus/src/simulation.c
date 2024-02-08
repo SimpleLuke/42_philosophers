@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 19:30:09 by llai              #+#    #+#             */
-/*   Updated: 2024/02/08 13:21:30 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/08 18:02:37 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,12 @@ void	start_simulation(t_table *table)
 			run_child(table, table->child_idx);
 		table->child_idx++;
 	}
+	table->eat_pid = fork();
+	if (table->eat_pid == -1)
+		err_exit(EXIT_FAILURE, table);
+	if (table->eat_pid == 0)
+		check_eat_goal(table);
+
 	// set_pthread(table);
 	// join_pthread(table);
 }

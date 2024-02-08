@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:35:29 by llai              #+#    #+#             */
-/*   Updated: 2024/02/08 13:19:16 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/08 18:03:53 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,11 @@ typedef struct s_table
 	sem_t			*philo_sem;
 	sem_t			*dead_sem;
 	sem_t			*dead_msg_sem;
+	sem_t			*eaten_sem;
+	// sem_t			*msg_sem;
 	int				child_idx;
 	int				*pids;
+	int				eat_pid;
 }	t_table;
 
 bool		check_argv(int argc, char **argv);
@@ -85,5 +88,6 @@ void		ft_usleep(uint64_t ms, t_table *table);
 void		set_time(t_table *table);
 void		err_exit(int errstate, t_table *table);
 void		kill_and_get_childern(t_table *table);
+void		check_eat_goal(t_table *table);
 
 #endif // !PHILO_H

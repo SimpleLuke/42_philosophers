@@ -6,12 +6,32 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:23:46 by llai              #+#    #+#             */
-/*   Updated: 2024/02/08 13:21:39 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/08 18:16:31 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 #include <semaphore.h>
+
+void	check_eat_goal(t_table *table)
+{
+	int	i;
+
+	i = 0;
+	while (true)
+	{
+		printf("WAIT\n");
+		sem_wait(table->eaten_sem);
+		i++;
+		printf("ADD 1 to i: %d, phi nb = %d\n", i, table->philo_nb);
+		if (i == table->philo_nb)
+		{
+			table->is_end = true;
+			sem_post(table->dead_sem);
+			return ;
+		}
+	}
+}
 
 void	kill_and_get_childern(t_table *table)
 {
