@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:06:50 by llai              #+#    #+#             */
-/*   Updated: 2024/02/08 12:34:27 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/08 13:00:32 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,12 @@ int	init_table(t_table *table, int argc, char **argv)
 	{
 		perror("sem_open");
 		err_exit(print_err("table->dead_sem", "SEM dead error", EXIT_FAILURE), table);
+	}
+	table->dead_msg_sem = sem_open("/dead_msg_sem", O_CREAT | O_EXCL, 0666, 1);
+	if (table->dead_msg_sem == SEM_FAILED)
+	{
+		perror("sem_open");
+		err_exit(print_err("table->dead_msg_sem", "SEM dead msg error", EXIT_FAILURE), table);
 	}
 	// table->eat_sem = sem_open("/eat_sem", O_CREAT | O_EXCL, 0666, 1);
 	// if (table->eat_sem == SEM_FAILED)

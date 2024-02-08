@@ -6,13 +6,14 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 19:30:09 by llai              #+#    #+#             */
-/*   Updated: 2024/02/08 12:37:27 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/08 13:21:30 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 #include <pthread.h>
 #include <stdbool.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 //
@@ -52,7 +53,7 @@
 //
 void	run_child(t_table *table, int child_idx)
 {
-	sem_init(table->eat_sem, 0, 1);
+	sem_init(&table->philos[table->child_idx].eat_sem, 0, 1);
 	if (pthread_create(&table->philos[child_idx].tid, NULL, routine, (void *)&table->philos[child_idx]) != 0)
 		err_exit(print_err("Table->nurse", "Thread can't be created", EXIT_FAILURE), table);
 	if (pthread_create(&table->nurse.tid, NULL, monitor, (void *)table) != 0)

@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 11:54:28 by llai              #+#    #+#             */
-/*   Updated: 2024/02/08 12:47:21 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/08 13:18:21 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 
 void	eating(t_philo *philo)
 {
-	sem_wait(philo->table->eat_sem);
+	sem_wait(&philo->eat_sem);
 	philo->last_eat = timestamp_in_ms(philo->table);
 	philo->eaten++;
-	sem_post(philo->table->eat_sem);
+	sem_post(&philo->eat_sem);
 	if (!philo->table->is_end)
 		printf("%ld\t%d is eating\n", timestamp_in_ms(philo->table), philo->id);
 	ft_usleep(philo->table->eat_time, philo->table);

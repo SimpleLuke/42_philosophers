@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:35:29 by llai              #+#    #+#             */
-/*   Updated: 2024/02/08 12:33:27 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/08 13:19:16 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_philo
 	struct s_table	*table;
 	uint64_t		last_eat;
 	int				eaten;
+	sem_t			eat_sem;
 }	t_philo;
 
 typedef struct s_table
@@ -63,7 +64,7 @@ typedef struct s_table
 	bool			is_end;
 	sem_t			*philo_sem;
 	sem_t			*dead_sem;
-	sem_t			*eat_sem;
+	sem_t			*dead_msg_sem;
 	int				child_idx;
 	int				*pids;
 }	t_table;

@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 11:51:27 by llai              #+#    #+#             */
-/*   Updated: 2024/02/08 12:43:16 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/08 13:20:27 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,12 @@ void	*monitor(void *arg)
 	ft_usleep(100, table);
 	while (true)
 	{
-		sem_wait(table->eat_sem);
+		sem_wait(&table->philos[table->child_idx].eat_sem);
 		// printf("%d: now:%ld last eat: %ld die time: %ld\n", table->child_idx + 1, timestamp_in_ms(table), table->philos[table->child_idx].last_eat, table->die_time);
 		if (table->eat_goal > -1 && check_eat_goal(table))
 		{
 			stop_philos(table);
+			// sem_close(table->eat_sem);
 			return (NULL);
 		}
 		if (timestamp_in_ms(table) - table->philos[table->child_idx].last_eat
@@ -48,10 +49,12 @@ void	*monitor(void *arg)
 			stop_philos(table);
 			table->dead = table->child_idx + 1;
 			table->dead_time = timestamp_in_ms(table);
+			sem_wait(table->dead_msg_sem);
 			printf("%ld\t%d died\n", table->dead_time, table->dead);
+			// sem_close(table->eat_sem);
 			return (NULL);
 		}
-		sem_post(table->eat_sem);
+		sem_post(&table->philos[table->child_idx].eat_sem);
 	}
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:41:36 by llai              #+#    #+#             */
-/*   Updated: 2024/02/08 12:34:38 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/08 13:19:23 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	main(int argc, char **argv)
 	t_table	table;
 
 	sem_unlink("/dead_sem");
+	sem_unlink("/dead_msg_sem");
 	sem_unlink("/philo_sem");
 	sem_unlink("/eat_sem");
 	if (argc < 5)
@@ -42,8 +43,10 @@ int	main(int argc, char **argv)
 		printf("%ld\t%d died\n", table.dead_time, table.dead + 1);
 	sem_close(table.philo_sem);
 	sem_close(table.dead_sem);
+	sem_close(table.dead_msg_sem);
 	// sem_close(table.eat_sem);
 	sem_unlink("/dead_sem");
+	sem_unlink("/dead_msg_sem");
 	sem_unlink("/philo_sem");
 	sem_unlink("/eat_sem");
 	// pthread_mutex_unlock(&table.print_lock);
