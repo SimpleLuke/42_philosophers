@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:35:28 by llai              #+#    #+#             */
-/*   Updated: 2024/02/08 13:31:46 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/08 21:21:26 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,5 @@ uint64_t	timestamp_in_ms(t_table *table)
 
 void	set_time(t_table *table)
 {
-	// int			i;
-	// uint64_t	now;
-
 	timestamp_in_ms(table);
-	// now = timestamp_in_ms(table);
-	// i = -1;
-	// while (++i < table->philo_nb)
-	// 	table->philos[i].last_eat = now;
 }

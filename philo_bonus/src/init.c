@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:06:50 by llai              #+#    #+#             */
-/*   Updated: 2024/02/08 18:43:17 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/08 21:18:21 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,41 +14,6 @@
 #include <semaphore.h>
 #include <stdio.h>
 #include <stdlib.h>
-
-// void	create_forks(t_table *table)
-// {
-// 	table->forks = malloc(sizeof(pthread_mutex_t) * table->philo_nb);
-// 	if (!table->forks)
-// 	{
-// 		print_err("table->forks", "Malloc error");
-// 		return ;
-// 	}
-// }
-//
-// void	assign_forks(t_table *table)
-// {
-// 	int	i;
-//
-// 	create_forks(table);
-// 	i = -1;
-// 	while (++i < table->philo_nb)
-// 	{
-// 		if (pthread_mutex_init(&table->forks[i], NULL) != 0)
-// 		{
-// 			print_err("table->forks", "mutex init has failed\n");
-// 			return ;
-// 		}
-// 	}
-// 	i = -1;
-// 	while (++i < table->philo_nb)
-// 	{
-// 		table->philos[i].left_fork = &table->forks[i];
-// 		if (i == table->philo_nb - 1)
-// 			table->philos[i].right_fork = &table->forks[0];
-// 		else
-// 			table->philos[i].right_fork = &table->forks[i + 1];
-// 	}
-// }
 
 void	init_philo(t_table *table)
 {
@@ -72,34 +37,29 @@ void	init_philo(t_table *table)
 		table->philos[i].id = i + 1;
 		table->philos[i].table = table;
 		table->philos[i].eaten = 0;
-		// table->philos[i].left_lock = false;
-		// table->philos[i].right_lock = false;
 	}
 }
-//
-// void	init_nurse_lock(t_table *table)
-// {
-// 	if (pthread_mutex_init(&table->nurse.dead_lock, NULL) != 0)
-// 	{
-// 		print_err("table->nurse.dead_lock", "mutex init has failed\n");
-// 		return ;
-// 	}
-// 	if (pthread_mutex_init(&table->nurse.eat_lock, NULL) != 0)
-// 	{
-// 		print_err("table->nurse.eat_lock", "mutex init has failed\n");
-// 		return ;
-// 	}
-// 	if (pthread_mutex_init(&table->print_lock, NULL) != 0)
-// 	{
-// 		print_err("table->print_lock", "mutex init has failed\n");
-// 		return ;
-// 	}
-// 	if (pthread_mutex_init(&table->fork_lock, NULL) != 0)
-// 	{
-// 		print_err("table->fork_lock", "mutex init has failed\n");
-// 		return ;
-// 	}
-// }
+
+void	init_sem(t_table *table)
+{
+	table->philo_sem = sem_open("/philo_sem", O_CREAT | O_EXCL,
+			0666, table->philo_nb);
+	if (table->philo_sem == SEM_FAILED)
+		err_exit(print_err("table->philo_sem", "SEM philo error",
+				EXIT_FAILURE), table);
+	table->dead_sem = sem_open("/dead_sem", O_CREAT | O_EXCL, 0666, 0);
+	if (table->dead_sem == SEM_FAILED)
+		err_exit(print_err("table->dead_sem", "SEM dead error",
+				EXIT_FAILURE), table);
+	table->dead_msg_sem = sem_open("/dead_msg_sem", O_CREAT | O_EXCL, 0666, 1);
+	if (table->dead_msg_sem == SEM_FAILED)
+		err_exit(print_err("table->dead_msg_sem", "SEM dead msg error",
+				EXIT_FAILURE), table);
+	table->eaten_sem = sem_open("/eaten_sem", O_CREAT | O_EXCL, 0666, 0);
+	if (table->eaten_sem == SEM_FAILED)
+		err_exit(print_err("table->eaten_sem", "SEM eat error",
+				EXIT_FAILURE), table);
+}
 
 int	init_table(t_table *table, int argc, char **argv)
 {
@@ -117,46 +77,5 @@ int	init_table(t_table *table, int argc, char **argv)
 	else
 		table->eat_goal = -1;
 	init_philo(table);
-	table->philo_sem = sem_open("/philo_sem", O_CREAT | O_EXCL, 0666, table->philo_nb);
-	if (table->philo_sem == SEM_FAILED)
-	{
-		perror("sem_open");
-		err_exit(print_err("table->philo_sem", "SEM philo error", EXIT_FAILURE), table);
-
-	}
-	table->dead_sem = sem_open("/dead_sem", O_CREAT | O_EXCL, 0666, 0);
-	if (table->dead_sem == SEM_FAILED)
-	{
-		perror("sem_open");
-		err_exit(print_err("table->dead_sem", "SEM dead error", EXIT_FAILURE), table);
-	}
-	table->dead_msg_sem = sem_open("/dead_msg_sem", O_CREAT | O_EXCL, 0666, 1);
-	if (table->dead_msg_sem == SEM_FAILED)
-	{
-		perror("sem_open");
-		err_exit(print_err("table->dead_msg_sem", "SEM dead msg error", EXIT_FAILURE), table);
-	}
-	table->eaten_sem = sem_open("/eaten_sem", O_CREAT | O_EXCL, 0666, 0);
-	if (table->eaten_sem == SEM_FAILED)
-	{
-		perror("sem_open");
-		err_exit(print_err("table->eaten_sem", "SEM eat error", EXIT_FAILURE), table);
-	}
-	// table->msg_sem = sem_open("/msg_sem", O_CREAT | O_EXCL, 0666, 1);
-	// if (table->msg_sem == SEM_FAILED)
-	// {
-	// 	perror("sem_open");
-	// 	err_exit(print_err("table->msg_sem", "SEM msg error", EXIT_FAILURE), table);
-	// }
-	// table->eat_sem = sem_open("/eat_sem", O_CREAT | O_EXCL, 0666, 1);
-	// if (table->eat_sem == SEM_FAILED)
-	// {
-	// 	perror("sem_open");
-	// 	err_exit(print_err("table->eat_sem", "SEM eat error", EXIT_FAILURE), table);
-	// }
-	// sem_init(table->philo_sem, 0, table->philo_nb);
-	// sem_init(table->dead_sem, 0, table->philo_nb);
-	// assign_forks(table);
-	// init_nurse_lock(table);
 	return (0);
 }
