@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 11:51:27 by llai              #+#    #+#             */
-/*   Updated: 2024/02/06 12:52:35 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/08 21:41:27 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,7 @@ void	*monitor(void *arg)
 	while (true)
 	{
 		if (table->eat_goal > -1 && check_eat_goal(table))
-		{
-			stop_philos(table);
-			return (NULL);
-		}
+			return (stop_philos(table), NULL);
 		i = -1;
 		while (++i < table->philo_nb)
 		{
