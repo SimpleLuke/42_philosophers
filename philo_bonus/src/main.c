@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:41:36 by llai              #+#    #+#             */
-/*   Updated: 2024/02/08 18:35:25 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/08 18:44:37 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ int	main(int argc, char **argv)
 	sem_unlink("/dead_msg_sem");
 	sem_unlink("/philo_sem");
 	sem_unlink("/eaten_sem");
-	printf("HERE\n");
 	// pthread_mutex_unlock(&table.print_lock);
 	// free_data(&table);
 	return (0);

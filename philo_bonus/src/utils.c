@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:10:23 by llai              #+#    #+#             */
-/*   Updated: 2024/02/08 15:12:20 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/08 21:03:48 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ void	ft_usleep(uint64_t ms, t_table *table)
 	target = timestamp_in_ms(table) + ms;
 	while (timestamp_in_ms(table) < target)
 	{
-		// if (timestamp_in_ms(table) > target)
-		// 	break ;
 		usleep(100);
 	}
 }

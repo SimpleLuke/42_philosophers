@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 11:54:28 by llai              #+#    #+#             */
-/*   Updated: 2024/02/08 18:33:36 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/08 19:51:16 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	eating(t_philo *philo)
 	philo->eaten++;
 	if (philo->eaten == philo->table->eat_goal)
 	{
-		printf("%d : eaten %d\n", philo->id, philo->eaten);
+		// printf("%d : eaten %d\n", philo->id, philo->eaten);
 		sem_post(philo->table->eaten_sem);
 	}
 	sem_post(&philo->eat_sem);
@@ -53,16 +53,19 @@ void	*routine(void *arg)
 	//
 	philo = (t_philo *)arg;
 	// if (philo->id > (philo->table->philo_nb / 2 + 1))
-	sem_wait(&philo->eat_sem);
+	// sem_wait(&philo->eat_sem);
 	philo->last_eat = timestamp_in_ms(philo->table);
-	sem_post(&philo->eat_sem);
+	// sem_post(&philo->eat_sem);
 	// sem_wait(philo->table->dead_sem);
+	if (philo->id % 2)
+		ft_usleep(philo->table->eat_time, philo->table);
 	while (1)
 	{
 	// printf("HEY\n");
+		// printf("%d: last eat %ld\n", philo->id, philo->last_eat);
 		thinking(philo);
 		if (philo->id % 2)
-			ft_usleep(philo->table->eat_time, philo->table);
+			ft_usleep(1, philo->table);
 		pick_up_forks(philo);
 		eating(philo);
 		put_down_forks(philo);
