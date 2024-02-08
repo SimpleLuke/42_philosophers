@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:06:50 by llai              #+#    #+#             */
-/*   Updated: 2024/02/06 22:00:40 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/08 12:34:27 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,18 +123,18 @@ int	init_table(t_table *table, int argc, char **argv)
 		err_exit(print_err("table->philo_sem", "SEM philo error", EXIT_FAILURE), table);
 
 	}
-	table->dead_sem = sem_open("/dead_sem", O_CREAT | O_EXCL, 0666, table->philo_nb);
+	table->dead_sem = sem_open("/dead_sem", O_CREAT | O_EXCL, 0666, 0);
 	if (table->dead_sem == SEM_FAILED)
 	{
 		perror("sem_open");
 		err_exit(print_err("table->dead_sem", "SEM dead error", EXIT_FAILURE), table);
 	}
-	table->eat_sem = sem_open("/eat_sem", O_CREAT | O_EXCL, 0666, 1);
-	if (table->dead_sem == SEM_FAILED)
-	{
-		perror("sem_open");
-		err_exit(print_err("table->eat_sem", "SEM dead error", EXIT_FAILURE), table);
-	}
+	// table->eat_sem = sem_open("/eat_sem", O_CREAT | O_EXCL, 0666, 1);
+	// if (table->eat_sem == SEM_FAILED)
+	// {
+	// 	perror("sem_open");
+	// 	err_exit(print_err("table->eat_sem", "SEM eat error", EXIT_FAILURE), table);
+	// }
 	// sem_init(table->philo_sem, 0, table->philo_nb);
 	// sem_init(table->dead_sem, 0, table->philo_nb);
 	// assign_forks(table);

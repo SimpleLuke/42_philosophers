@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:35:29 by llai              #+#    #+#             */
-/*   Updated: 2024/02/06 21:59:55 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/08 12:33:27 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ long long	ft_atoll(const char *nptr);
 uint64_t	timestamp_in_ms(t_table *table);
 int			init_table(t_table *table, int argc, char **argv);
 void		start_simulation(t_table *table);
-// void		*routine(void *arg);
-void		*routine(t_philo *philo);
+void		*routine(void *arg);
+// void		*routine(t_philo *philo);
 void		*monitor(void *arg);
 void		pick_up_forks(t_philo *philo);
 void		put_down_forks(t_philo *philo);

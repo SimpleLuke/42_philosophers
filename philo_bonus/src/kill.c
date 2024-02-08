@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:23:46 by llai              #+#    #+#             */
-/*   Updated: 2024/02/06 22:17:38 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/08 12:25:05 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	kill_and_get_childern(t_table *table)
 	int	i;
 
 	printf("I am the parent here\n");
-	ft_usleep(1000, table);
+	// ft_usleep(10, table);
 	// printf("CHILD: %d\n", table->pids[0]);
 	sem_wait(table->dead_sem);
 	i = -1;

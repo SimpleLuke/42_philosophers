@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 19:30:09 by llai              #+#    #+#             */
-/*   Updated: 2024/02/06 22:20:08 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/08 12:37:27 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,14 @@
 //
 void	run_child(t_table *table, int child_idx)
 {
-	// if (pthread_create(&table->philos[child_idx].tid, NULL, routine, (void *)table) != 0)
-	// 	err_exit(print_err("Table->nurse", "Thread can't be created", EXIT_FAILURE), table);
-	// if (pthread_create(&table->nurse.tid, NULL, monitor, (void *)table) != 0)
-	// 	err_exit(print_err("Table->nurse", "Thread can't be created", EXIT_FAILURE), table);
-	// pthread_join(table->philos[child_idx].tid, NULL);
-	// pthread_join(table->nurse.tid, NULL);
-	routine(&table->philos[child_idx]);
+	sem_init(table->eat_sem, 0, 1);
+	if (pthread_create(&table->philos[child_idx].tid, NULL, routine, (void *)&table->philos[child_idx]) != 0)
+		err_exit(print_err("Table->nurse", "Thread can't be created", EXIT_FAILURE), table);
+	if (pthread_create(&table->nurse.tid, NULL, monitor, (void *)table) != 0)
+		err_exit(print_err("Table->nurse", "Thread can't be created", EXIT_FAILURE), table);
+	pthread_join(table->philos[child_idx].tid, NULL);
+	pthread_join(table->nurse.tid, NULL);
+	// routine(&table->philos[child_idx]);
 }
 
 void	start_simulation(t_table *table)
