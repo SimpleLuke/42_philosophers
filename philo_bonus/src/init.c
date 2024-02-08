@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:06:50 by llai              #+#    #+#             */
-/*   Updated: 2024/02/08 21:18:21 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/08 21:26:44 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,6 @@ int	init_table(t_table *table, int argc, char **argv)
 	else
 		table->eat_goal = -1;
 	init_philo(table);
+	init_sem(table);
 	return (0);
 }

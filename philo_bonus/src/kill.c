@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:23:46 by llai              #+#    #+#             */
-/*   Updated: 2024/02/08 21:15:40 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/08 21:27:06 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	kill_and_get_childern(t_table *table)
 		kill(table->pids[i], SIGKILL);
 	if (table->eat_pid != -1)
 		kill(table->eat_pid, SIGKILL);
-	printf("All children are killed\n");
 	i = -1;
 	while (++i < table->philo_nb)
 		waitpid(table->pids[i], &status, 0);

@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 11:51:27 by llai              #+#    #+#             */
-/*   Updated: 2024/02/08 21:12:41 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/08 21:39:32 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,6 @@ void	*monitor(void *arg)
 		if (timestamp_in_ms(table) - table->philos[table->child_idx].last_eat
 			> table->die_time)
 		{
-			printf("%d: now:%ld last eat: %ld die time: %ld\n",
-				table->child_idx + 1, timestamp_in_ms(table),
-				table->philos[table->child_idx].last_eat, table->die_time);
 			stop_philos(table);
 			table->dead = table->child_idx + 1;
 			table->dead_time = timestamp_in_ms(table);
