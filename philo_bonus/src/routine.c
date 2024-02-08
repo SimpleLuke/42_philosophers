@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 11:54:28 by llai              #+#    #+#             */
-/*   Updated: 2024/02/08 12:36:53 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/08 12:47:21 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void	*routine(void *arg)
 	t_philo		*philo;
 	//
 	philo = (t_philo *)arg;
-	// if (philo->id % 2)
-	// 	ft_usleep(1, philo->table);
+	if (philo->id % 2)
+		ft_usleep(1, philo->table);
 	// sem_wait(philo->table->dead_sem);
 	while (1)
 	{
