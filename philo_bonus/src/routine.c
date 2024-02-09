@@ -6,12 +6,11 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 11:54:28 by llai              #+#    #+#             */
-/*   Updated: 2024/02/08 21:11:33 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/09 12:33:33 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-#include <semaphore.h>
 
 void	eating(t_philo *philo)
 {

@@ -6,12 +6,11 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:35:28 by llai              #+#    #+#             */
-/*   Updated: 2024/02/06 11:36:45 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/09 11:19:08 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-#include <stdint.h>
 
 static uint64_t	gettimeofday_ms(void)
 {

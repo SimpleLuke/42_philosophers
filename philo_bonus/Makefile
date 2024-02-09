@@ -1,5 +1,5 @@
 BIN = bin
-NAME = philo
+NAME = philo_bonus
 CC = cc
 CFLAG = -Wall -Werror -Wextra -pthread -g3
 SRC = src/main.c \

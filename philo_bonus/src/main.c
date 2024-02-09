@@ -6,13 +6,11 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:41:36 by llai              #+#    #+#             */
-/*   Updated: 2024/02/08 21:20:58 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/09 12:40:35 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-#include <semaphore.h>
-#include <stdlib.h>
 
 int	main(int argc, char **argv)
 {

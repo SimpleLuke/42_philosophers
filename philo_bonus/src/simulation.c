@@ -6,16 +6,11 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 19:30:09 by llai              #+#    #+#             */
-/*   Updated: 2024/02/08 21:13:50 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/09 12:33:49 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-#include <pthread.h>
-#include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
 
 void	run_child(t_table *table, int child_idx)
 {

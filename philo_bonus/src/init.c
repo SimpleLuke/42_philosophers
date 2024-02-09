@@ -6,14 +6,11 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:06:50 by llai              #+#    #+#             */
-/*   Updated: 2024/02/08 21:26:44 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/09 12:34:08 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-#include <semaphore.h>
-#include <stdio.h>
-#include <stdlib.h>
 
 void	init_philo(t_table *table)
 {

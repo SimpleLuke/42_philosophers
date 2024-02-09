@@ -6,14 +6,11 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 19:30:09 by llai              #+#    #+#             */
-/*   Updated: 2024/02/06 11:55:06 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/09 11:19:04 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-#include <pthread.h>
-#include <stdbool.h>
-#include <unistd.h>
 
 void	set_pthread(t_table *table)
 {

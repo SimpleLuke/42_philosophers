@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:35:29 by llai              #+#    #+#             */
-/*   Updated: 2024/02/08 21:23:52 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/09 12:32:41 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ typedef struct s_philo
 {
 	int				id;
 	pthread_t		tid;
-	bool			left_lock;
-	bool			right_lock;
 	struct s_table	*table;
 	uint64_t		last_eat;
 	int				eaten;

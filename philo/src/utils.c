@@ -6,14 +6,11 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:10:23 by llai              #+#    #+#             */
-/*   Updated: 2024/02/06 11:01:39 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/09 11:19:13 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-#include <stdbool.h>
-#include <stdint.h>
-#include <unistd.h>
 
 static int	ft_isdigit(int c)
 {

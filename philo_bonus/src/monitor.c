@@ -6,14 +6,11 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 11:51:27 by llai              #+#    #+#             */
-/*   Updated: 2024/02/08 21:39:32 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/09 12:33:42 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-#include <pthread.h>
-#include <semaphore.h>
-#include <unistd.h>
 
 void	stop_philos(t_table *table)
 {
