@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:06:50 by llai              #+#    #+#             */
-/*   Updated: 2024/02/09 12:34:08 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/09 12:59:48 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,10 @@ void	init_sem(t_table *table)
 	table->eaten_sem = sem_open("/eaten_sem", O_CREAT | O_EXCL, 0666, 0);
 	if (table->eaten_sem == SEM_FAILED)
 		err_exit(print_err("table->eaten_sem", "SEM eat error",
+				EXIT_FAILURE), table);
+	table->print_sem = sem_open("/print_sem", O_CREAT | O_EXCL, 0666, 1);
+	if (table->print_sem == SEM_FAILED)
+		err_exit(print_err("table->print_sem", "SEM print_sem error",
 				EXIT_FAILURE), table);
 }
 

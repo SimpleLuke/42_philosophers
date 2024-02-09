@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 11:54:28 by llai              #+#    #+#             */
-/*   Updated: 2024/02/09 12:33:33 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/09 13:02:16 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,35 @@ void	eating(t_philo *philo)
 		sem_post(philo->table->eaten_sem);
 	sem_post(&philo->eat_sem);
 	if (!philo->table->is_end)
+	{
+		sem_wait(philo->table->print_sem);
 		printf("%ld\t%d is eating\n", timestamp_in_ms(philo->table), philo->id);
+		sem_post(philo->table->print_sem);
+	}
 	ft_usleep(philo->table->eat_time, philo->table);
 }
 
 void	sleeping(t_philo *philo)
 {
 	if (!philo->table->is_end)
+	{
+		sem_wait(philo->table->print_sem);
 		printf("%ld\t%d is sleeping\n",
 			timestamp_in_ms(philo->table), philo->id);
+		sem_post(philo->table->print_sem);
+	}
 	ft_usleep(philo->table->sleep_time, philo->table);
 }
 
 void	thinking(t_philo *philo)
 {
 	if (!philo->table->is_end)
+	{
+		sem_wait(philo->table->print_sem);
 		printf("%ld\t%d is thinking\n",
 			timestamp_in_ms(philo->table), philo->id);
+		sem_post(philo->table->print_sem);
+	}
 }
 
 void	*routine(void *arg)

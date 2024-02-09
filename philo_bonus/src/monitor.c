@@ -6,11 +6,12 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 11:51:27 by llai              #+#    #+#             */
-/*   Updated: 2024/02/09 12:33:42 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/09 13:03:16 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+#include <semaphore.h>
 
 void	stop_philos(t_table *table)
 {
@@ -34,6 +35,7 @@ void	*monitor(void *arg)
 			table->dead = table->child_idx + 1;
 			table->dead_time = timestamp_in_ms(table);
 			sem_wait(table->dead_msg_sem);
+			sem_wait(table->print_sem);
 			printf("%ld\t%d died\n", table->dead_time, table->dead);
 			return (NULL);
 		}

@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 11:53:26 by llai              #+#    #+#             */
-/*   Updated: 2024/02/08 21:14:34 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/09 13:01:42 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,15 @@ void	pick_up_right_fork(t_philo *philo)
 void	pick_up_forks(t_philo *philo)
 {
 	sem_wait(philo->table->philo_sem);
+	sem_wait(philo->table->print_sem);
 	printf("%ld\t%d has taken a fork\n",
 		timestamp_in_ms(philo->table), philo->id);
+	sem_post(philo->table->print_sem);
 	sem_wait(philo->table->philo_sem);
+	sem_wait(philo->table->print_sem);
 	printf("%ld\t%d has taken a fork\n",
 		timestamp_in_ms(philo->table), philo->id);
+	sem_post(philo->table->print_sem);
 }
 
 void	put_down_forks(t_philo *philo)
