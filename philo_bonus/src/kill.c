@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:23:46 by llai              #+#    #+#             */
-/*   Updated: 2024/02/09 13:02:52 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/09 13:21:38 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	check_eat_goal(t_table *table)
 		if (i == table->philo_nb)
 		{
 			table->is_end = true;
+			sem_wait(table->print_sem);
 			sem_post(table->dead_sem);
 		}
 	}

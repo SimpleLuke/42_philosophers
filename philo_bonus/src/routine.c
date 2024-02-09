@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 11:54:28 by llai              #+#    #+#             */
-/*   Updated: 2024/02/09 13:02:16 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/09 13:16:51 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	*routine(void *arg)
 	{
 		thinking(philo);
 		if (philo->id % 2)
-			ft_usleep(1, philo->table);
+			usleep(100);
 		pick_up_forks(philo);
 		eating(philo);
 		put_down_forks(philo);
