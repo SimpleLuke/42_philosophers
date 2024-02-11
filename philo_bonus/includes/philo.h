@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:35:29 by llai              #+#    #+#             */
-/*   Updated: 2024/02/09 12:56:33 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/11 16:31:18 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_table
 	sem_t			*dead_msg_sem;
 	sem_t			*eaten_sem;
 	sem_t			*print_sem;
+	sem_t			*time_sem;
 	int				child_idx;
 	int				*pids;
 	int				eat_pid;

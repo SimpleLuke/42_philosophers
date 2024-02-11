@@ -6,12 +6,14 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:23:46 by llai              #+#    #+#             */
-/*   Updated: 2024/02/09 13:30:22 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/11 17:15:00 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 #include <semaphore.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 void	check_eat_goal(t_table *table)
 {

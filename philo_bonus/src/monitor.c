@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 11:51:27 by llai              #+#    #+#             */
-/*   Updated: 2024/02/09 13:28:43 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/11 17:04:39 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	stop_philos(t_table *table)
 {
 	table->is_end = true;
-	sem_post(table->dead_sem);
 }
 
 void	*monitor(void *arg)
@@ -36,6 +35,7 @@ void	*monitor(void *arg)
 			sem_wait(table->dead_msg_sem);
 			sem_wait(table->print_sem);
 			printf("%ld\t%d died\n", table->dead_time, table->dead);
+			sem_post(table->dead_sem);
 			return (NULL);
 		}
 		sem_post(&table->philos[table->child_idx].eat_sem);

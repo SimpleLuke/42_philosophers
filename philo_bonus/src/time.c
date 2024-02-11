@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:35:28 by llai              #+#    #+#             */
-/*   Updated: 2024/02/09 12:34:17 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/11 16:32:46 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ static uint64_t	gettimeofday_ms(void)
 
 uint64_t	timestamp_in_ms(t_table *table)
 {
+	sem_wait(table->time_sem);
 	if (table->start_time == 0)
 		table->start_time = gettimeofday_ms();
+	sem_post(table->time_sem);
 	return (gettimeofday_ms() - table->start_time);
 }
 
