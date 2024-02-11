@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:35:29 by llai              #+#    #+#             */
-/*   Updated: 2024/02/06 11:56:29 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/11 13:20:12 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_table
 	uint64_t		dead_time;
 	pthread_mutex_t	print_lock;
 	pthread_mutex_t	fork_lock;
+	pthread_mutex_t	loop_lock;
 	bool			is_end;
 }	t_table;
 

@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:06:50 by llai              #+#    #+#             */
-/*   Updated: 2024/02/06 11:38:36 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/11 13:27:04 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,11 @@ void	init_nurse_lock(t_table *table)
 	if (pthread_mutex_init(&table->fork_lock, NULL) != 0)
 	{
 		print_err("table->fork_lock", "mutex init has failed\n");
+		return ;
+	}
+	if (pthread_mutex_init(&table->loop_lock, NULL) != 0)
+	{
+		print_err("table->loop_lock", "mutex init has failed\n");
 		return ;
 	}
 }

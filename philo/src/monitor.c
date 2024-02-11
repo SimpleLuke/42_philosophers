@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 11:51:27 by llai              #+#    #+#             */
-/*   Updated: 2024/02/09 11:18:53 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/11 13:29:16 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void	stop_philos(t_table *table)
 	int	i;
 
 	pthread_mutex_lock(&table->nurse.dead_lock);
-	pthread_mutex_lock(&table->print_lock);
-	pthread_mutex_unlock(&table->print_lock);
+	// pthread_mutex_lock(&table->print_lock);
+	// pthread_mutex_unlock(&table->print_lock);
 	table->is_end = true;
 	i = -1;
 	while (++i < table->philo_nb)

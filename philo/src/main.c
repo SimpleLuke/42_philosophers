@@ -6,7 +6,7 @@
 /*   By: llai <llai@student.42london.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:41:36 by llai              #+#    #+#             */
-/*   Updated: 2024/02/09 13:26:05 by llai             ###   ########.fr       */
+/*   Updated: 2024/02/11 16:10:11 by llai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	main(int argc, char **argv)
 	pthread_mutex_lock(&table.print_lock);
 	if (table.dead != -1)
 		printf("%ld\t%d died\n", table.dead_time, table.dead + 1);
+	pthread_mutex_unlock(&table.print_lock);
 	free_data(&table);
 	return (0);
 }

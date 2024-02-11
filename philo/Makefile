@@ -1,6 +1,6 @@
 BIN = bin
 NAME = philo
-CC = cc
+CC = gcc
 CFLAG = -Wall -Werror -Wextra -pthread -g3
 SRC = src/main.c \
 	  src/error.c \
